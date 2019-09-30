@@ -3,6 +3,7 @@ import InsertContent from '../../components/InsertContent';
 import QuickSort from '../../algorithmns/QuickSort';
 import MergeSort from '../../algorithmns/MergeSort';
 import CountSort from '../../algorithmns/CountSort';
+import ShellSort from '../../algorithmns/ShellSort';
 import ResultComponent from '../../components/ResultComponent';
 import Button from '@material-ui/core/Button';
 
@@ -13,21 +14,37 @@ class Home extends Component {
             value: [],
             compareWeight: 0,
             swapWeight: 0,
-            quickSort: '',
-            mergeSort: '',
-            countSort: '',
+            quickSort: null,
+            mergeSort: null,
+            countSort: null,
+            shellSort: '',
             results: []
         };
     }
 
-    FinalArray = (arr, compareWeight, swapWeight) => {
+    FinalArray = async (arr, compareWeight, swapWeight) => {
         let newArray = arr.map(item => {
             return parseInt(item);
         });
 
-        this.setState({ value: newArray, compareWeight: compareWeight, swapWeight: swapWeight, quickSort: new QuickSort(newArray), mergeSort: new MergeSort(newArray), countSort: new CountSort(newArray) }, () => {
-            this.setState({ results: [...this.state.results, this.state.quickSort.getResult(), this.state.mergeSort.getResult(), this.state.countSort.getResult()] });
+        await this.setState({
+            value: newArray,
+            compareWeight: compareWeight,
+            swapWeight: swapWeight,
+            quickSort: new QuickSort(newArray.slice(0)),
+            mergeSort: new MergeSort(newArray.slice(0)),
+            countSort: new CountSort(newArray.slice(0)),
+            shellSort: new ShellSort(newArray.slice(0)),
         });
+
+        await this.setState({
+            results: [
+                this.state.quickSort.getResult(),
+                this.state.mergeSort.getResult(),
+                this.state.countSort.getResult(),
+                this.state.shellSort.getResult(),
+            ]
+        }); 
     }
 
     compareSwaps(a, b) {
