@@ -4,6 +4,7 @@ import QuickSort from '../../algorithmns/QuickSort';
 import MergeSort from '../../algorithmns/MergeSort';
 import CountSort from '../../algorithmns/CountSort';
 import ShellSort from '../../algorithmns/ShellSort';
+import BucketSort from '../../algorithmns/bucketSort';
 import ResultComponent from '../../components/ResultComponent';
 import Button from '@material-ui/core/Button';
 
@@ -17,7 +18,8 @@ class Home extends Component {
             quickSort: null,
             mergeSort: null,
             countSort: null,
-            shellSort: '',
+            shellSort: null,
+            bucketSort: null,
             results: []
         };
     }
@@ -35,6 +37,7 @@ class Home extends Component {
             mergeSort: new MergeSort(newArray.slice(0)),
             countSort: new CountSort(newArray.slice(0)),
             shellSort: new ShellSort(newArray.slice(0)),
+            bucketSort: new BucketSort(newArray.slice(0)),
         });
 
         await this.setState({
@@ -43,6 +46,7 @@ class Home extends Component {
                 this.state.mergeSort.getResult(),
                 this.state.countSort.getResult(),
                 this.state.shellSort.getResult(),
+                this.state.bucketSort.getResult(),
             ]
         }); 
     }
