@@ -6,6 +6,7 @@ class ResultComponent extends Component {
         return (
             <div style={this.props.win ? { ...styles.container, backgroundColor: '#ffd700' } : styles.container}>
                 <div>Algoritimo {this.props.result.name}</div>
+                <div>Score: {this.props.result.score}</div>
                 <div>Swaps: {this.props.result.swaps}</div>
                 <div>Comparações: {this.props.result.comparisons}</div>
             </div>

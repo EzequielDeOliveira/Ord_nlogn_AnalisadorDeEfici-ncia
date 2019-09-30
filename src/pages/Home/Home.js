@@ -40,15 +40,28 @@ class Home extends Component {
             bucketSort: new BucketSort(newArray.slice(0)),
         });
 
+        var results = [
+            this.state.quickSort.getResult(),
+            this.state.mergeSort.getResult(),
+            this.state.countSort.getResult(),
+            this.state.shellSort.getResult(),
+            this.state.bucketSort.getResult(),
+        ]
+
+        results.forEach(function (result, index, arr){
+            arr[index] = {
+                ...result,
+                score: (result.swaps * this.state.swapWeight + result.comparisons * this.state.compareWeight)
+            }
+        }, this)
+
+        console.log(results, 'result');
+        
         await this.setState({
-            results: [
-                this.state.quickSort.getResult(),
-                this.state.mergeSort.getResult(),
-                this.state.countSort.getResult(),
-                this.state.shellSort.getResult(),
-                this.state.bucketSort.getResult(),
-            ]
-        }); 
+            results: results
+        });
+
+
     }
 
     compareSwaps(a, b) {
@@ -71,6 +84,16 @@ class Home extends Component {
         return 0;
     }
 
+    compareScore(a, b) {
+        if (a.score < b.score) {
+            return -1;
+        }
+        if (a.score > b.score) {
+            return 1;
+        }
+        return 0;
+    }
+
     restart = () => {
         this.setState({
             results: []
@@ -81,6 +104,7 @@ class Home extends Component {
         let { results } = this.state;
         results.sort(this.compareSwaps);
         results.sort(this.compareComparisons);
+        results.sort(this.compareScore);
         return (
             <>
                 {results.map((item, index) => {
