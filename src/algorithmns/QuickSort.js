@@ -31,6 +31,7 @@ class QuickSort {
             // partition and after partition  
             this.quickSort(arr, low, pi - 1);
             this.quickSort(arr, pi + 1, high);
+            // console.log(arr, 'kinda of sorted, I think')
         }
     }
 

@@ -63,6 +63,8 @@ class MergeSort {
             this.mergeSort(arr, m + 1, r);
 
             this.merge(arr, l, m, r);
+
+            // console.log(this.arr, 'merge kinda sorted')
         }
     }
 

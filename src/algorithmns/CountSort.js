@@ -28,6 +28,8 @@ class CountSort {
  
         for (i = 0; arr[i]; ++i)
             arr[i] = output[i];
+
+        console.log(arr, 'sorted count');
     }
 
 
