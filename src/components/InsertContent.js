@@ -43,7 +43,7 @@ class InsertContent extends Component {
 
 
     validateInput = (value) => {
-        let reg = /^(\d+(,\d)*)$/;
+        let reg = /^(\d+ ?( ?, ?\d ?)*)$/;
         console.log(reg.test(value));
         return (reg.test(value));
     }

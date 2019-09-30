@@ -53,15 +53,15 @@ class Home extends Component {
 
 
     renderResults = () => {
-        let {results} = this.state;
+        let { results } = this.state;
         results.sort(this.compareSwaps);
         results.sort(this.compareComparisons);
         return (
             results.map((item, index) => {
                 if (index === 0) {
-                    return <ResultComponent result={item} win={true} />
+                    return <ResultComponent key={index} result={item} win={true} />
                 } else {
-                    return <ResultComponent result={item} />
+                    return <ResultComponent result={item} key={index} />
                 }
             })
         );
