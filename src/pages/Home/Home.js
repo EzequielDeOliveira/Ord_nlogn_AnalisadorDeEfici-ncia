@@ -4,8 +4,7 @@ import QuickSort from '../../algorithmns/QuickSort';
 import MergeSort from '../../algorithmns/MergeSort';
 import CountSort from '../../algorithmns/CountSort';
 import ResultComponent from '../../components/ResultComponent';
-
-
+import Button from '@material-ui/core/Button';
 
 class Home extends Component {
     constructor(props) {
@@ -51,19 +50,34 @@ class Home extends Component {
         return 0;
     }
 
+    restart = () => {
+        this.setState({
+            results: []
+        })
+    }
 
     renderResults = () => {
         let {results} = this.state;
         results.sort(this.compareSwaps);
         results.sort(this.compareComparisons);
         return (
-            results.map((item, index) => {
-                if (index === 0) {
-                    return <ResultComponent result={item} win={true} />
-                } else {
-                    return <ResultComponent result={item} />
-                }
-            })
+            <>
+                {results.map((item, index) => {
+                    if (index === 0) {
+                        return <ResultComponent result={item} win={true} />
+                    } else {
+                        return <ResultComponent result={item} />
+                    }
+                })}
+                <Button
+                    style={styles.button}
+                    onClick={this.restart}
+                    >
+                    
+                    Again!
+                    
+                </Button>
+            </>
         );
     }
 
@@ -73,7 +87,8 @@ class Home extends Component {
                 {
                     this.state.results.length === 0 ?
                         <InsertContent FinalArray={this.FinalArray} />
-                        : this.renderResults()
+                        :
+                        this.renderResults()
                 }
             </main>
         );
@@ -88,6 +103,15 @@ const styles = {
         width: '100vw',
         height: '100vh',
     },
+    button: {
+        position: 'absolute',
+        bottom: '30px',
+        right: '30px',
+        borderRadius: '5px',
+        height: '60px',
+        width: '100px',
+        backgroundColor: 'white' 
+    }
 };
 
 export default Home;
