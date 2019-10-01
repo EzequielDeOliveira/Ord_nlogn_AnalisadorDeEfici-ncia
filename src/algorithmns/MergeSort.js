@@ -30,6 +30,7 @@ class MergeSort {
 
         // We will concatenate values into the resultArray in order
         while (leftIndex < left.length && rightIndex < right.length) {
+            this.comparisons++;
             if (left[leftIndex] < right[rightIndex]) {
                 resultArray.push(left[leftIndex]);
                 leftIndex++; // move left array cursor
@@ -37,6 +38,7 @@ class MergeSort {
                 resultArray.push(right[rightIndex]);
                 rightIndex++; // move right array cursor
             }
+            this.swaps++;
         }
 
         // We need to concat here because there will be one element remaining

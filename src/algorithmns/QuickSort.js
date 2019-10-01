@@ -6,6 +6,7 @@ class QuickSort {
     }
 
     defaultComparator = (a, b) => {
+        this.comparisons++;
         if (a < b) {
             return -1;
         }
@@ -43,6 +44,7 @@ class QuickSort {
                     // If the element just to the right of the split index,
                     //   isn't this element, swap them.
                     if (splitIndex !== i) {
+                        this.swaps++;
                         let temp = sortedArray[splitIndex];
                         sortedArray[splitIndex] = sortedArray[i];
                         sortedArray[i] = temp;
@@ -58,6 +60,7 @@ class QuickSort {
             }
 
             // Move the pivot value to between the split.
+            this.swaps++;
             sortedArray[end] = sortedArray[splitIndex];
             sortedArray[splitIndex] = pivotValue;
 
