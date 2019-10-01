@@ -43,9 +43,15 @@ class InsertContent extends Component {
 
 
     validateInput = (value) => {
-        let reg = /^(\d+ ?( ?, ?\d ?)*)$/;
+        let reg = /^(\d+ ?( ?, ?\d+ ?)*)$/;
         console.log(reg.test(value));
         return (reg.test(value));
+    }
+
+    generateArray = () => {
+        this.setState({
+            value: Array(50).fill().map(() => Math.round(Math.random() * 1000)).toString()
+        })
     }
 
     handleSubmit = () => {
@@ -78,8 +84,8 @@ class InsertContent extends Component {
 
 
 
-        if(array && compareWeight && swapWeight) 
-            this.props.FinalArray(this.state.value.trim().split(','), parseInt (this.state.compareWeight), parseInt(this.state.swapWeight));
+        if (array && compareWeight && swapWeight)
+            this.props.FinalArray(this.state.value.trim().split(','), parseInt(this.state.compareWeight), parseInt(this.state.swapWeight));
     }
 
     render() {
@@ -97,6 +103,9 @@ class InsertContent extends Component {
                         style={styles.input}
                         error={this.state.error}
                     />
+                    <Button variant="contained" color="primary" style={styles.randomArray} onClick={() => this.generateArray()}>
+                        Random
+                    </Button>
                 </div>
                 <div style={styles.weight}>
                     <h4>Dificuldade de verificações</h4>
@@ -129,6 +138,10 @@ class InsertContent extends Component {
 };
 
 const styles = {
+    randomArray: {
+        height: '40px',
+        width: '90px',
+    },
     weightField: {
         display: 'flex',
         width: '80px',
