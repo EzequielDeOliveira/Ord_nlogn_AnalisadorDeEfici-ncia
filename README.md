@@ -25,3 +25,6 @@ Linux
 ## Capturas de tela
 
 
+![](/assest/home.png)
+
+![](/assest/compare.png)
