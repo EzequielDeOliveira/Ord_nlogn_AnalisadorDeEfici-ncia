@@ -25,6 +25,6 @@ Linux
 ## Capturas de tela
 
 
-![](/assest/home.png)
+![](https://github.com/EzequielDeOliveira/Ord_nlogn_AnalisadorDeEfici-ncia/blob/master/assets/home.png)
 
-![](/assest/compare.png)
+![](https://github.com/EzequielDeOliveira/Ord_nlogn_AnalisadorDeEfici-ncia/blob/master/assets/compare.png)
