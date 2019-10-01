@@ -5,36 +5,71 @@ class QuickSort {
         this.comparisons = 0;
     }
 
+    defaultComparator = (a, b) => {
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        return 0;
+    };
 
-    partition = (arr, low, high) => {
-        let pivot = arr[high]; // pivot  
-        let i = (low - 1); // Index of smaller element  
 
-        for (let j = low; j <= high - 1; j++) {
-            // If current element is smaller than the pivot  
-            if (this.compare(arr[j], pivot)) {
-                i++; // increment index of smaller element  
-                this.swap(arr[i], arr[j]);
+    quickSort = (
+        unsortedArray,
+        comparator = this.defaultComparator
+    ) => {
+
+        // Create a sortable array to return.
+        let sortedArray = [...unsortedArray];
+
+        // Recursively sort sub-arrays.
+        let recursiveSort = (start, end) => {
+
+            // If this sub-array is empty, it's sorted.
+            if (end - start < 1) {
+                return;
             }
-        }
-        this.swap(arr[i + 1], arr[high], true);
-        return (i + 1);
-    }
 
-    quickSort = (arr, low, high) => {
-        if (low < high) {
-            /* pi is partitioning index, arr[p] is now  
-            at right place */
-            let pi = this.partition(arr, low, high);
+            let pivotValue = sortedArray[end];
+            let splitIndex = start;
+            for (let i = start; i < end; i++) {
+                let sort = comparator(sortedArray[i], pivotValue);
 
-            // Separately sort elements before  
-            // partition and after partition  
-            this.quickSort(arr, low, pi - 1);
-            this.quickSort(arr, pi + 1, high);
-            // console.log(arr, 'kinda of sorted, I think')
-        }
-    }
+                // This value is less than the pivot value.
+                if (sort === -1) {
 
+                    // If the element just to the right of the split index,
+                    //   isn't this element, swap them.
+                    if (splitIndex !== i) {
+                        let temp = sortedArray[splitIndex];
+                        sortedArray[splitIndex] = sortedArray[i];
+                        sortedArray[i] = temp;
+                    }
+
+                    // Move the split index to the right by one,
+                    //   denoting an increase in the less-than sub-array size.
+                    splitIndex++;
+                }
+
+                // Leave values that are greater than or equal to
+                //   the pivot value where they are.
+            }
+
+            // Move the pivot value to between the split.
+            sortedArray[end] = sortedArray[splitIndex];
+            sortedArray[splitIndex] = pivotValue;
+
+            // Recursively sort the less-than and greater-than arrays.
+            recursiveSort(start, splitIndex - 1);
+            recursiveSort(splitIndex + 1, end);
+        };
+
+        // Sort the entire array.
+        recursiveSort(0, unsortedArray.length - 1);
+        return sortedArray;
+    };
 
     swap(i, j, equal) {
         let aux = this.arr[i];
@@ -51,7 +86,8 @@ class QuickSort {
     }
 
     getResult() {
-        this.quickSort(this.arr, 0, this.arr.length - 1);
+        this.arr = this.quickSort(this.arr);
+        console.log('QUick', this.arr);
         return {
             name: 'Quick Sort',
             swaps: this.swaps,

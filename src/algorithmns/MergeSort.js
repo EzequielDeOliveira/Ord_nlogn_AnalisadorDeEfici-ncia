@@ -6,85 +6,49 @@ class MergeSort {
     }
 
 
-    merge(arr, l, m, r) {
-        let i, j, k;
-        let n1 = m - l + 1;
-        let n2 = r - m;
+    // Merge Sort Implentation (Recursion)
+    mergeSort(arr) {
+        // No need to sort the array if the array only has one element or empty
+        if (arr.length <= 1) {
+            return arr;
+        }
+        // In order to divide the array in half, we need to figure out the middle
+        const middle = Math.floor(arr.length / 2);
 
-        let L = [];
-        let R = [];
+        // This is where we will be dividing the array into left and right
+        const left = arr.slice(0, middle);
+        const right = arr.slice(middle);
 
-        for (i = 0; i < n1; i++)
-            L[i] = arr[l + i];
-        for (j = 0; j < n2; j++)
-            R[j] = arr[m + 1 + j];
+        // Using recursion to combine the left and right
+        return this.merge(
+            this.mergeSort(left), this.mergeSort(right)
+        );
+    }
 
-        i = 0;
-        j = 0;
-        k = l;
-        while (i < n1 && j < n2) {
+    merge(left, right) {
+        let resultArray = [], leftIndex = 0, rightIndex = 0;
 
-            this.comparisons++;
-
-            if (L[i] <= R[j]) {
-                arr[k] = L[i];
-                i++;
+        // We will concatenate values into the resultArray in order
+        while (leftIndex < left.length && rightIndex < right.length) {
+            if (left[leftIndex] < right[rightIndex]) {
+                resultArray.push(left[leftIndex]);
+                leftIndex++; // move left array cursor
+            } else {
+                resultArray.push(right[rightIndex]);
+                rightIndex++; // move right array cursor
             }
-            else {
-                arr[k] = R[j];
-                j++;
-                this.swaps++;
-            }
-            k++;
         }
 
-
-        while (i < n1) {
-            arr[k] = L[i];
-            i++;
-            k++;
-        }
-
-
-        while (j < n2) {
-            arr[k] = R[j];
-            j++;
-            k++;
-        }
+        // We need to concat here because there will be one element remaining
+        // from either left OR the right
+        return resultArray
+            .concat(left.slice(leftIndex))
+            .concat(right.slice(rightIndex));
     }
 
-
-    mergeSort(arr, l, r) {
-        if (l < r) {
-
-            let m = l + (r - l) / 2;
-
-            this.mergeSort(arr, l, m);
-            this.mergeSort(arr, m + 1, r);
-
-            this.merge(arr, l, m, r);
-
-            // console.log(this.arr, 'merge kinda sorted')
-        }
-    }
-
-
-    swap(i, j) {
-        let aux = this.arr[i];
-        this.arr[i] = this.arr[j];
-        this.arr[j] = aux;
-        this.swaps++;
-    }
-
-    compare(i, j) {
-
-        this.comparisons++;
-
-        return i < j;
-    }
 
     getResult() {
-        this.mergeSort(this.arr, 0, this.arr.length - 1);
+        this.arr = this.mergeSort(this.arr);
         return {
             name: 'Merge Sort',
             swaps: this.swaps,

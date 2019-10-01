@@ -6,32 +6,25 @@ class CountSort {
         this.comparisons = 0;
     }
 
-    countSort(arr) {
-        let RANGE = 255;
-
-        let output = [];
-
-
-        let count = [];
-        let i;
-
-        for (i = 0; arr[i]; ++i)
-            ++count[arr[i]];
-
-        for (i = 1; i <= RANGE; ++i)
-            count[i] += count[i - 1];
-
-        for (i = 0; arr[i]; ++i) {
-            output[count[arr[i]] - 1] = arr[i];
-            --count[arr[i]];
+    countingSort = (arr, min, max) => {
+        let i = min,
+            j = 0,
+            len = arr.length,
+            count = [];
+        for (i; i <= max; i++) {
+            count[i] = 0;
         }
- 
-        for (i = 0; arr[i]; ++i)
-            arr[i] = output[i];
-
-        console.log(arr, 'sorted count');
-    }
-
+        for (i = 0; i < len; i++) {
+            count[arr[i]] += 1;
+        }
+        for (i = min; i <= max; i++) {
+            while (count[i] > 0) {
+                arr[j] = i;
+                j++;
+                count[i]--;
+            }
+        }
+    };
 
     swap(i, j) {
         let aux = this.arr[i];
@@ -48,7 +41,7 @@ class CountSort {
     }
 
     getResult() {
-        this.countSort(this.arr);
+        this.countingSort(this.arr, 0, this.arr.length);
         return {
             name: 'Count Sort',
             swaps: this.swaps,
