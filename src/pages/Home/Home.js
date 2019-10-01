@@ -17,7 +17,7 @@ class Home extends Component {
             swapWeight: 0,
             quickSort: null,
             mergeSort: null,
-            countSort: null,
+            // countSort: null,
             shellSort: null,
             bucketSort: null,
             results: []
@@ -35,7 +35,7 @@ class Home extends Component {
             swapWeight: swapWeight,
             quickSort: new QuickSort(newArray.slice(0)),
             mergeSort: new MergeSort(newArray.slice(0)),
-            countSort: new CountSort(newArray.slice(0)),
+            // countSort: new CountSort(newArray.slice(0)),
             shellSort: new ShellSort(newArray.slice(0)),
             bucketSort: new BucketSort(newArray.slice(0)),
         });
@@ -43,7 +43,7 @@ class Home extends Component {
         var results = [
             this.state.quickSort.getResult(),
             this.state.mergeSort.getResult(),
-            this.state.countSort.getResult(),
+            // this.state.countSort.getResult(),
             this.state.shellSort.getResult(),
             this.state.bucketSort.getResult(),
         ]
