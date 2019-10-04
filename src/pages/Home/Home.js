@@ -4,6 +4,7 @@ import QuickSort from '../../algorithmns/QuickSort';
 import MergeSort from '../../algorithmns/MergeSort';
 import CountSort from '../../algorithmns/CountSort';
 import ShellSort from '../../algorithmns/ShellSort';
+import RadixSort from '../../algorithmns/radixSort';
 import BucketSort from '../../algorithmns/bucketSort';
 import ResultComponent from '../../components/ResultComponent';
 import Button from '@material-ui/core/Button';
@@ -20,6 +21,7 @@ class Home extends Component {
             // countSort: null,
             shellSort: null,
             bucketSort: null,
+            radixSort: null,
             results: []
         };
     }
@@ -38,6 +40,7 @@ class Home extends Component {
             // countSort: new CountSort(newArray.slice(0)),
             shellSort: new ShellSort(newArray.slice(0)),
             bucketSort: new BucketSort(newArray.slice(0)),
+            radixSort: new RadixSort(newArray.slice(0)),
         });
 
         var results = [
@@ -46,6 +49,7 @@ class Home extends Component {
             // this.state.countSort.getResult(),
             this.state.shellSort.getResult(),
             this.state.bucketSort.getResult(),
+            this.state.radixSort.getResult(),
         ]
 
         results.forEach(function (result, index, arr){
