@@ -48,7 +48,7 @@ class InsertContent extends Component {
                 weightError: false,
             })
         }
-        this.setState({ swapWeight: e.target.value });
+        this.setState({ memoryWeight: e.target.value });
     }
 
     validateInput = (value) => {
@@ -68,6 +68,7 @@ class InsertContent extends Component {
         let array = false;
         let compareWeight = false;
         let swapWeight = false;
+        let memoryWeight = false;
 
         this.validateInput(this.state.value.trim()) ?
             array = !array

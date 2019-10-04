@@ -19,7 +19,7 @@ class Home extends Component {
             memoryWeight: 0,
             quickSort: null,
             mergeSort: null,
-            // countSort: null,
+            countSort: null,
             shellSort: null,
             bucketSort: null,
             radixSort: null,
@@ -39,7 +39,7 @@ class Home extends Component {
             memoryWeight: memoryWeight,
             quickSort: new QuickSort(newArray.slice(0)),
             mergeSort: new MergeSort(newArray.slice(0)),
-            // countSort: new CountSort(newArray.slice(0)),
+            countSort: new CountSort(newArray.slice(0)),
             shellSort: new ShellSort(newArray.slice(0)),
             bucketSort: new BucketSort(newArray.slice(0)),
             radixSort: new RadixSort(newArray.slice(0)),
@@ -48,21 +48,31 @@ class Home extends Component {
         var results = [
             this.state.quickSort.getResult(),
             this.state.mergeSort.getResult(),
-            // this.state.countSort.getResult(),
+            this.state.countSort.getResult(),
             this.state.shellSort.getResult(),
             this.state.bucketSort.getResult(),
             this.state.radixSort.getResult(),
         ]
 
         results.forEach(function (result, index, arr){
+            console.log(result.memory);
+
+            let mem = 0;
+
+            if (result.memory) {
+                mem = result.memory;
+            }
+
             arr[index] = {
                 ...result,
                 score: (
                     result.swaps * this.state.swapWeight + 
                     result.comparisons * this.state.compareWeight +
-                    result.memory * this.state.memoryWeight
+                    mem * this.state.memoryWeight
                 )
             }
+
+            console.log(arr[index].score)
         }, this)
 
         console.log(results, 'result');

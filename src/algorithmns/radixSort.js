@@ -1,8 +1,8 @@
-class RadixSort {
+import SortAlgorithm from './sortAlgorithm'
+
+class RadixSort extends SortAlgorithm {
     constructor(arr) {
-        this.arr = arr;
-        this.swaps = 0;
-        this.comparisons = 0;
+        super(arr)
     }
 
     getPosition(num, place) {
@@ -25,12 +25,14 @@ class RadixSort {
         const max = this.getMax(arr);
 
         for (let i = 0; i < max; i++) {
+            this.memory += 10;
             let buckets = Array.from({ length: 10 }, () => []) // creating 10 empty arrays
 
             for (let j = 0; j < arr.length; j++) {
                 this.comparisons++;
                 buckets[this.getPosition(arr[j], i)].push(arr[j]); //push the number into desired
                                                              // bucket
+                this.memory++;
             }
             arr = [].concat(...buckets);
         }
@@ -39,11 +41,7 @@ class RadixSort {
 
     getResult() {
         this.radixSort(this.arr);
-        return {
-            name: 'Radix Sort',
-            swaps: this.swaps,
-            comparisons: this.comparisons
-        }
+        return (this.returnResult('Radix Sort'));
     }
 }
 

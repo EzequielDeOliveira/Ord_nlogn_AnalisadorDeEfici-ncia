@@ -1,9 +1,8 @@
+import SortAlgorithm from "./sortAlgorithm";
 
-class CountSort {
+class CountSort extends SortAlgorithm {
     constructor(arr) {
-        this.arr = arr;
-        this.swaps = 0;
-        this.comparisons = 0;
+        super(arr)
     }
 
     countingSort = (arr, min, max) => {
@@ -24,6 +23,7 @@ class CountSort {
                 count[i]--;
             }
         }
+        this.memory += count.length;
     };
 
     swap(i, j) {
@@ -42,11 +42,9 @@ class CountSort {
 
     getResult() {
         this.countingSort(this.arr, 0, this.arr.length);
-        return {
-            name: 'Count Sort',
-            swaps: this.swaps,
-            comparisons: this.comparisons
-        }
+        return (
+            this.returnResult('Count Sort')
+        )
     }
 
 }
