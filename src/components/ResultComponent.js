@@ -9,6 +9,7 @@ class ResultComponent extends Component {
                 <div>Score: {this.props.result.score}</div>
                 <div>Swaps: {this.props.result.swaps}</div>
                 <div>Comparações: {this.props.result.comparisons}</div>
+                <div>Memória: {this.props.result.memory}</div>
             </div>
         );
     }
