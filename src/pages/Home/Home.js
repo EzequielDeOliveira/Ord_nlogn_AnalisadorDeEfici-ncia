@@ -16,9 +16,10 @@ class Home extends Component {
             value: [],
             compareWeight: 0,
             swapWeight: 0,
+            memoryWeight: 0,
             quickSort: null,
             mergeSort: null,
-            // countSort: null,
+            countSort: null,
             shellSort: null,
             bucketSort: null,
             radixSort: null,
@@ -26,7 +27,7 @@ class Home extends Component {
         };
     }
 
-    FinalArray = async (arr, compareWeight, swapWeight) => {
+    FinalArray = async (arr, compareWeight, swapWeight, memoryWeight) => {
         let newArray = arr.map(item => {
             return parseInt(item);
         });
@@ -35,9 +36,10 @@ class Home extends Component {
             value: newArray,
             compareWeight: compareWeight,
             swapWeight: swapWeight,
+            memoryWeight: memoryWeight,
             quickSort: new QuickSort(newArray.slice(0)),
             mergeSort: new MergeSort(newArray.slice(0)),
-            // countSort: new CountSort(newArray.slice(0)),
+            countSort: new CountSort(newArray.slice(0)),
             shellSort: new ShellSort(newArray.slice(0)),
             bucketSort: new BucketSort(newArray.slice(0)),
             radixSort: new RadixSort(newArray.slice(0)),
@@ -46,17 +48,31 @@ class Home extends Component {
         var results = [
             this.state.quickSort.getResult(),
             this.state.mergeSort.getResult(),
-            // this.state.countSort.getResult(),
+            this.state.countSort.getResult(),
             this.state.shellSort.getResult(),
             this.state.bucketSort.getResult(),
             this.state.radixSort.getResult(),
         ]
 
         results.forEach(function (result, index, arr){
+            console.log(result.memory);
+
+            let mem = 0;
+
+            if (result.memory) {
+                mem = result.memory;
+            }
+
             arr[index] = {
                 ...result,
-                score: (result.swaps * this.state.swapWeight + result.comparisons * this.state.compareWeight)
+                score: (
+                    result.swaps * this.state.swapWeight + 
+                    result.comparisons * this.state.compareWeight +
+                    mem * this.state.memoryWeight
+                )
             }
+
+            console.log(arr[index].score)
         }, this)
 
         console.log(results, 'result');
@@ -88,6 +104,16 @@ class Home extends Component {
         return 0;
     }
 
+    compareMemory(a, b) {
+        if (a.memory < b.memory) {
+            return -1;
+        }
+        if (a.memory > b.memory) {
+            return 1;
+        }
+        return 0;
+    }
+
     compareScore(a, b) {
         if (a.score < b.score) {
             return -1;
@@ -108,6 +134,7 @@ class Home extends Component {
         let { results } = this.state;
         results.sort(this.compareSwaps);
         results.sort(this.compareComparisons);
+        results.sort(this.compareMemory)
         results.sort(this.compareScore);
         return (
             <>

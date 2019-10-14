@@ -9,6 +9,7 @@ class InsertContent extends Component {
             value: '',
             compareWeight: '',
             swapWeight: '',
+            memoryWeight: '',
             error: false,
             weightError: false
         };
@@ -41,6 +42,14 @@ class InsertContent extends Component {
         this.setState({ swapWeight: e.target.value });
     }
 
+    handleChangeMemoryWeight = (e) => {
+        if (this.state.weightError === true) {
+            this.setState({
+                weightError: false,
+            })
+        }
+        this.setState({ memoryWeight: e.target.value });
+    }
 
     validateInput = (value) => {
         let reg = /^(\d+ ?( ?, ?\d+ ?)*)$/;
@@ -59,6 +68,7 @@ class InsertContent extends Component {
         let array = false;
         let compareWeight = false;
         let swapWeight = false;
+        let memoryWeight = false;
 
         this.validateInput(this.state.value.trim()) ?
             array = !array
@@ -83,9 +93,21 @@ class InsertContent extends Component {
             })
 
 
+        this.validateInput(this.state.memoryWeight) ?
+            memoryWeight = !memoryWeight
+            :
+            this.setState({
+                weightError: true,
+            })
+
 
         if (array && compareWeight && swapWeight)
-            this.props.FinalArray(this.state.value.trim().split(','), parseInt(this.state.compareWeight), parseInt(this.state.swapWeight));
+            this.props.FinalArray(
+                this.state.value.trim().split(','),
+                parseInt(this.state.compareWeight),
+                parseInt(this.state.swapWeight),
+                parseInt(this.state.memoryWeight)
+            );
     }
 
     render() {
@@ -126,6 +148,17 @@ class InsertContent extends Component {
                         variant="filled"
                         style={styles.weightField}
                         onChange={this.handleChangeSwapWeight}
+                        error={this.state.weightError}
+                    />
+                </div>
+                <div style={styles.weight}>
+                    <h4>Dificuldade de Alocação de Memória</h4>
+                    <TextField
+                        label="Ex. 0"
+                        margin="dense"
+                        variant="filled"
+                        style={styles.weightField}
+                        onChange={this.handleChangeMemoryWeight}
                         error={this.state.weightError}
                     />
                 </div>

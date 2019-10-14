@@ -3,6 +3,7 @@ class BucketSort {
         this.arr = arr;
         this.swaps = 0;
         this.comparisons = 0;
+        this.memory = 0;
     }
 
     // InsertionSort to be used within bucket sort
@@ -50,6 +51,7 @@ class BucketSort {
         // Initializing buckets
         var bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1;
         var allBuckets = new Array(bucketCount);
+        this.memory += bucketCount;
 
         for (i = 0; i < allBuckets.length; i++) {
             allBuckets[i] = [];
@@ -58,7 +60,8 @@ class BucketSort {
         // Pushing values to buckets
         array.forEach(function (currentVal) {
             allBuckets[Math.floor((currentVal - minValue) / bucketSize)].push(currentVal);
-        });
+            this.memory++;
+        }, this);
 
         // Sorting buckets
         array.length = 0;
@@ -79,6 +82,7 @@ class BucketSort {
             name: 'Bucket Sort',
             swaps: this.swaps,
             comparisons: this.comparisons,
+            memory: this.memory,
         }
     }
 }

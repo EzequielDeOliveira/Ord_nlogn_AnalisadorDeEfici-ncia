@@ -3,6 +3,7 @@ class QuickSort {
         this.arr = arr;
         this.swaps = 0;
         this.comparisons = 0;
+        this.memory = 0;
     }
 
     defaultComparator = (a, b) => {
@@ -23,6 +24,7 @@ class QuickSort {
     ) => {
 
         let sortedArray = [...unsortedArray];
+        this.memory += unsortedArray.length;
 
         let recursiveSort = (start, end) => {
 
@@ -81,7 +83,8 @@ class QuickSort {
         return {
             name: 'Quick Sort',
             swaps: this.swaps,
-            comparisons: this.comparisons
+            comparisons: this.comparisons,
+            memory: this.memory,
         }
     }
 

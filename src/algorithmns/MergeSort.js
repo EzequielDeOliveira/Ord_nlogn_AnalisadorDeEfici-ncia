@@ -3,6 +3,7 @@ class MergeSort {
         this.arr = arr;
         this.swaps = 0;
         this.comparisons = 0;
+        this.memory = 0;
     }
 
 
@@ -11,6 +12,8 @@ class MergeSort {
         if (arr.length <= 1) {
             return arr;
         }
+
+        this.memory += arr.length;
 
         const middle = Math.floor(arr.length / 2);
 
@@ -48,7 +51,8 @@ class MergeSort {
         return {
             name: 'Merge Sort',
             swaps: this.swaps,
-            comparisons: this.comparisons
+            comparisons: this.comparisons,
+            memory: this.memory,
         }
     }
 
